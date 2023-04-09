@@ -1,14 +1,14 @@
 spring:
   datasource:
-    username: ${MYSQL_USERNAME}
+    username: ${MYSQL_USER}
     password: ${MYSQL_PASSWORD}
-    url: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}?createDatabaseIfNotExist=true
+    url: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_NAME}?createDatabaseIfNotExist=true
     driver-class-name: com.mysql.cj.jdbc.Driver
   sql:
     init:
       separator: ;
       encoding: UTF-8
-      platform: sqlite
+      platform: all
       mode: always
       schema-locations:
         - classpath:sql/schema.sql
@@ -24,6 +24,12 @@ spring:
         max-idle: 8
         min-idle: 0
         max-wait: 100ms
+  rabbitmq:
+    host: ${RABBITMQ_HOST}
+    port: ${RABBITMQ_PORT}
+    username: ${RABBITMQ_USER}
+    virtual-host: ${RABBITMQ_VHOST}
+    password: ${RABBITMQ_PASSWORD}
 mybatis-plus:
   mapper-locations: classpath:/mapper/*.xml
   type-aliases-package: com.szuse.szubkguidance.entity
