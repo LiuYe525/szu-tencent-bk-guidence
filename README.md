@@ -5,7 +5,7 @@
 部署指南见本项目 [documents文件夹](https://github.com/LiuYe525/szu-tencent-bk-guidence/tree/master/documents)
 
 要看懂本项目文档你可能需要掌握以下知识点
-- SringBoot基础知识
+- SpringBoot基础知识
 - Redis缓存中间件基本用法
 - MySQL数据库在SpringBoot项目中的使用方法
 - RabbitMQ消息队列中间件的使用  
