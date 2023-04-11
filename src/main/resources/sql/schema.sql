@@ -1,4 +1,3 @@
-# use `bkapp-hello-w-2q`;
 drop table if exists users;
 create table users
 (
