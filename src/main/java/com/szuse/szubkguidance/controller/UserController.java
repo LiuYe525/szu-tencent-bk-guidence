@@ -1,7 +1,10 @@
 package com.szuse.szubkguidance.controller;
 
+import com.szuse.szubkguidance.constants.MqConstant;
 import com.szuse.szubkguidance.entity.User;
+import com.szuse.szubkguidance.listener.MessageListener;
 import com.szuse.szubkguidance.mapper.UserMapper;
+import com.szuse.szubkguidance.utils.MqUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +28,9 @@ public class UserController {
     @Autowired
     RedisTemplate<String,Object> redisTemplate;
 
+    @Autowired
+    MessageListener messageListener;
+
     @GetMapping("/all")
     public List<User> findAll(){
         return userMapper.findAll();
@@ -39,6 +45,17 @@ public class UserController {
     @GetMapping("/getKey/{key}")
     public String getKey(@PathVariable String key) {
         return "get redis:" + redisTemplate.opsForValue().get(key);
+    }
+
+    @GetMapping("/sendMsg/{msg}")
+    public String senMsg(@PathVariable String msg) {
+        MqUtils.sendMsg(rabbitTemplate, MqConstant.EXCHANGE_NAME,"demo.test",msg);
+        return "发送消息至消息队列成功";
+    }
+
+    @GetMapping("/getMsg")
+    public String getMsg() {
+        return messageListener.getReceiveList().toString();
     }
 
 }
