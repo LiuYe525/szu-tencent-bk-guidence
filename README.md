@@ -1,7 +1,9 @@
 # szu-tencent-bk-guidence 腾讯蓝鲸智云平台使用指南
 ### author LiuYe  
 本项目旨在讲解如何通过高校合作账号使用腾讯蓝鲸智云部署Java项目(SpringBoot以及SpringCloud)
-项目提供了初始的项目代码可直接进行部署,容器镜像地址为：ccr.ccs.tencentyun.com/szu-bk-guidance/szu-bk-guidance  
+项目提供了初始的项目代码可直接进行部署  
+容器镜像地址为: ccr.ccs.tencentyun.com/szu-bk-guidance/szu-bk-guidance  
+访问地址为: https://apps.ce.bktencent.com/bkguidance/  
 部署指南见本项目 [documents文件夹](https://github.com/LiuYe525/szu-tencent-bk-guidence/tree/master/documents)
 
 要看懂本项目文档你可能需要掌握以下知识点
