@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: bk-guidance
+  profiles:
+    active: dev # 环境
+  cloud:
+    nacos:
+      discovery:
+#        server-addr: ${NACOS_DISCOVERY}
+        server-addr: ${NACOS_DISCOVERY}
+
+        metadata:
+          bkAccessUrl: ${BK_ACCESS_URL} # 蓝鲸访问地址
+      config:
+        #服务器地址
+#        server-addr: ${NACOS_CONFIG}
+        server-addr: ${NACOS_CONFIG}
+        # 配置文件格式
+        file-extension: yml
+        shared-configs:
+          - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+#      password: ${NACOS_PASSWORD}
+      password: ${NACOS_PASSWORD}

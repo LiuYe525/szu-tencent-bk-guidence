@@ -1,0 +1,23 @@
+server:
+  port: 10010
+
+spring:
+  application:
+    name: bk-gateway
+  cloud:
+    nacos:
+      discovery:
+#        server-addr: ${NACOS_DISCOVERY}
+        server-addr: ${NACOS_DISCOVERY}
+      config:
+        #服务器地址
+#        server-addr: ${NACOS_CONFIG}
+        server-addr: ${NACOS_CONFIG}
+        # 配置文件格式
+        file-extension: yml
+        shared-configs:
+          - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+#      password: ${NACOS_PASSWORD}
+      password: ${NACOS_PASSWORD}
+  profiles:
+    active: dev

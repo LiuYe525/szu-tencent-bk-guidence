@@ -1,0 +1,65 @@
+spring:
+  application:
+    name: bk-guidance
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${NACOS_DISCOVERY}
+        ip: ${SERVICE_IP}/${BKPAAS_APP_ID}
+        port: ${SERVICE_PORT}
+      config:
+        #服务器地址
+        server-addr: ${NACOS_CONFIG}
+        # 配置文件格式
+        file-extension: yml
+        shared-configs:
+          - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+      password: ${NACOS_PASSWORD}
+  datasource:
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
+    url: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_NAME}?createDatabaseIfNotExist=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  sql:
+    init:
+      separator: ;
+      encoding: UTF-8
+      platform: all
+      mode: always
+      schema-locations:
+        - classpath:sql/schema.sql
+      data-locations:
+        - classpath:sql/data.sql
+  redis:
+    host: ${REDIS_HOST}
+    port: ${REDIS_PORT}
+    password: ${REDIS_PASSWORD}
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+        max-wait: 100ms
+  rabbitmq:
+    host: ${RABBITMQ_HOST}
+    port: ${RABBITMQ_PORT}
+    username: ${RABBITMQ_USER}
+    virtual-host: ${RABBITMQ_VHOST}
+    password: ${RABBITMQ_PASSWORD}
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*.xml
+  type-aliases-package: com.szuse.szubkguidance.entity
+logging:
+  level:
+    org.springframework.amqp.rabbit.listener: warn
+    org.springframework.amqp.rabbit.connection: warn
+    io.lettuce.core.protocol: warn
+
+configuration:
+  redis:
+    expiration: ${REDIS_EXPIRATION:30}
+  weight:
+    click: ${CLICK_WEIGHT:0.2}
+    like: ${LIKE_WEIGHT:0.3}
+    collect: ${COLLECT_WEIGHT:0.4}
+    use: ${USE_WEIGHT:0.3}

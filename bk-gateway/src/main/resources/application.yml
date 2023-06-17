@@ -1,0 +1,47 @@
+server:
+  port: 10010 # 网关端口
+spring:
+  application:
+    name: bk-gateway # 服务名称
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${NACOS_DISCOVERY}
+        ip: ${SERVER_IP:}
+        port: ${SERVER_PORT}
+
+      config:
+        #服务器地址
+        server-addr: ${NACOS_CONFIG}
+        # 配置文件格式
+        file-extension: yml
+        shared-configs:
+          - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+      password: ${NACOS_PASSWORD}
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]': # 匹配所有请求
+            allowedOrigins: "*"
+            allowedHeaders: "*"
+            allowedMethods: "*"
+          default-filters:
+            - DedupeResponseHeader=Vary Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_FIRST
+            - name: ReactiveLoadBalancerClientFilter2
+      routes: # 网关路由配置
+        - id: bk-guidance
+          uri: lb://bk-guidance
+          predicates:
+            - Path=/user/**
+
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+
+
+logging:
+  level:
+    org.springframework.cloud.gateway: trace
+    org.springframework.cloud.loadbalancer: trace
+    org.springframework.web.reactive: trace
