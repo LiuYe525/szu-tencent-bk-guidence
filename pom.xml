@@ -15,6 +15,11 @@
 	<description>szuse-bkguidance</description>
 	<properties>
 		<java.version>17</java.version>
+		<datasource.url>jdbc:postgresql://postgres:5432/postgres</datasource.url>
+		<datasource.username>db_username</datasource.username>
+		<datasource.password>db_password</datasource.password>
+		<datasource.driver-class-name>org.postgresql.Driver</datasource.driver-class-name>
+		<app.package>com.szuse.bkguidance.jooq</app.package>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -122,6 +127,56 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.jooq</groupId>
+				<artifactId>jooq-codegen-maven</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<!-- 通过此配置，jooq-codegen-maven插件直接运行正常，通过maven执行mvn compile也正常 -->
+					<jdbc>
+						<url>${datasource.url}</url>
+						<user>${datasource.username}</user>
+						<password>${datasource.password}</password>
+						<driver>${datasource.driver-class-name}</driver>
+					</jdbc>
+					<generator>
+						<!-- 代码生成器 -->
+						<name>org.jooq.codegen.JavaGenerator</name>
+						<database>
+							<name>org.jooq.meta.postgres.PostgresDatabase</name>
+							<!--include和exclude用于控制为数据库中哪些表生成代码-->
+							<includes>.*</includes>
+							<excludes/>
+							<!--schema名称-->
+							<inputSchema>public</inputSchema>
+							<includeRoutines>false</includeRoutines>
+						</database>
+						<generate>
+							<validationAnnotations>false</validationAnnotations>
+							<javaTimeTypes>true</javaTimeTypes>
+							<pojos>true</pojos>
+							<pojosEqualsAndHashCode>true</pojosEqualsAndHashCode>
+							<pojosToString>true</pojosToString>
+							<immutablePojos>false</immutablePojos>
+							<serializablePojos>true</serializablePojos>
+							<interfaces>true</interfaces>
+							<serializableInterfaces>false</serializableInterfaces>
+							<daos>true</daos>
+						</generate>
+						<target>
+							<!--生成代码文件的包名及放置目录-->
+							<packageName>${app.package}</packageName>
+							<directory>src/main/java</directory>
+						</target>
+					</generator>
 				</configuration>
 			</plugin>
 		</plugins>

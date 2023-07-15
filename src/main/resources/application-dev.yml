@@ -1,0 +1,26 @@
+server:
+  port: 5555
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://postgres:5432/postgres
+    username: db_username
+    password: db_password
+  data:
+    redis:
+      host: redis
+      port: 6379
+      password: redis_password
+    mongodb:
+      host: mongodb
+      port: 27017
+      authentication-database: bkguidance
+      database: bkguidance
+      username: mongodb
+      password: mongodb_password
+  rabbitmq:
+    host: rabbitmq
+    port: 5672
+    username: rabbit
+    password: rabbit_password
