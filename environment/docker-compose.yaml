@@ -1,0 +1,54 @@
+version: '3.1'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres_password
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data
+    restart: always
+  redis:
+    image: redis:7.0
+    container_name: redis
+    restart: always
+    ports:
+      - 6379:6379
+    volumes:
+      - ./redis/data:/data
+      - ./redis/conf/redis.conf:/etc/redis/redis.conf
+    command:
+      - redis-server
+      - /etc/redis/redis.conf
+  mongo:
+    image: mongo:7.0.0-rc7
+    container_name: mongo
+    restart: always
+    hostname: mongo
+    ports:
+      - 27017:27017
+    environment:
+      TZ: Asia/Shanghai
+      MONGO_INITDB_ROOT_USERNAME: mongo
+      MONGO_INITDB_ROOT_PASSWORD: mongo_password
+      wiredTigerCacheSizeGB: 1.0
+    command: mongod --auth
+  rabbitmq:
+    restart: always
+    image: rabbitmq:3.12-rc-management
+    container_name: rabbitmq
+    hostname: rabbit
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      TZ: Asia/Shanghai
+      RABBITMQ_DEFAULT_USER: rabbit
+      RABBITMQ_DEFAULT_PASS: rabbit_password
+    volumes:
+      - ./rabbit/data:/var/lib/rabbitmq
+      - ./rabbit/conf:/etc/rabbitmq

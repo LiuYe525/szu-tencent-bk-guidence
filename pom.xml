@@ -171,9 +171,9 @@
   <properties>
     <app.package>com.szuse.bkguidance.jooq</app.package>
     <datasource.driver-class-name>org.postgresql.Driver</datasource.driver-class-name>
-    <datasource.password>db_password</datasource.password>
+    <datasource.password>postgres_password</datasource.password>
     <datasource.url>jdbc:postgresql://postgres:5432/postgres</datasource.url>
-    <datasource.username>db_username</datasource.username>
+    <datasource.username>postgres</datasource.username>
     <java.version>17</java.version>
   </properties>
 

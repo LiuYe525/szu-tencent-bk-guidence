@@ -1,0 +1,1 @@
+INSERT INTO public."user" (id, email, username, account, password, avatar, create_time, update_time, deleted) VALUES (1, '123456', '123456', '123456', '123456', '123456', '2023-07-16', '2023-07-16', false);
