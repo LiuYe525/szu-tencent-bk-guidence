@@ -8,13 +8,14 @@ import com.szuse.bkguidance.jooq.tables.pojos.User;
  * @date 15/7/2023 下午4:59
  */
 public interface UserService {
-  User createUser(String email, String account, String password);
 
-  void removeUserByEmail(String email);
+    User createUser(String email, String account, String password);
 
-  void removeUserByAccount(String account);
+    void removeUserByEmail(String email);
 
-  User updateUser(String email, String account, String password, String avatar);
+    void removeUserByAccount(String account);
 
-  Iterable<User> listUserByEmail(String email);
+    User updateUser(String email, String account, String password, String avatar);
+
+    Iterable<User> listUserByEmail(String email);
 }

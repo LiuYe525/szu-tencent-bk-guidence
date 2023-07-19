@@ -4,3 +4,9 @@ server:
 spring:
   profiles:
     active: dev
+
+bkguidance:
+  upload:
+    relativeBasicPath: upload
+    absoluteBasicPath: D:bkguidance/upload
+    datasetSubPath: /dataset
