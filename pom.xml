@@ -157,6 +157,11 @@
       <artifactId>commons-codec</artifactId>
       <groupId>commons-codec</groupId>
     </dependency>
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>fastjson</artifactId>
+      <version>2.0.20</version>
+    </dependency>
   </dependencies>
   <description>szuse-bkguidance</description>
   <groupId>com.szuse</groupId>
