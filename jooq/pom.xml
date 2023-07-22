@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.szuse</groupId>
+    <artifactId>szuse-bkguidance</artifactId>
+    <version>${revision}</version>
+  </parent>
+
+  <artifactId>jooq</artifactId>
+  <version>${revision}</version>
+
+  <properties>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <artifactId>mybatis-spring-boot-starter-test</artifactId>
+      <groupId>org.mybatis.spring.boot</groupId>
+      <scope>test</scope>
+      <version>3.0.2</version>
+    </dependency>
+    <dependency>
+      <artifactId>postgresql</artifactId>
+      <groupId>org.postgresql</groupId>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <artifactId>mybatis-spring-boot-starter</artifactId>
+      <groupId>org.mybatis.spring.boot</groupId>
+      <version>3.0.2</version>
+    </dependency>
+    <dependency>
+      <artifactId>spring-boot-starter-jdbc</artifactId>
+      <groupId>org.springframework.boot</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>spring-boot-starter-jooq</artifactId>
+      <groupId>org.springframework.boot</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+      <groupId>org.springframework.boot</groupId>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>hibernate-enhance-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <configuration>
+              <enableAssociationManagement>true</enableAssociationManagement>
+              <enableDirtyTracking>true</enableDirtyTracking>
+              <enableLazyInitialization>true</enableLazyInitialization>
+            </configuration>
+            <goals>
+              <goal>enhance</goal>
+            </goals>
+            <id>enhance</id>
+          </execution>
+        </executions>
+        <groupId>org.hibernate.orm.tooling</groupId>
+        <version>${hibernate.version}</version>
+      </plugin>
+      <plugin>
+        <artifactId>jooq-codegen-maven</artifactId>
+        <configuration>
+          <!-- 通过此配置，jooq-codegen-maven插件直接运行正常，通过maven执行mvn compile也正常 -->
+          <generator>
+            <!-- 代码生成器 -->
+            <database>
+              <excludes/>
+              <!--include和exclude用于控制为数据库中哪些表生成代码-->
+              <includeRoutines>false</includeRoutines>
+              <includes>.*</includes>
+              <!--schema名称-->
+              <inputSchema>public</inputSchema>
+              <name>org.jooq.meta.postgres.PostgresDatabase</name>
+            </database>
+            <generate>
+              <deprecated>false</deprecated>
+              <pojos>true</pojos>
+            </generate>
+            <name>org.jooq.codegen.JavaGenerator</name>
+            <target>
+              <!--生成代码文件的包名及放置目录-->
+              <directory>target/generated-sources</directory>
+              <packageName>${app.package}.jooq</packageName>
+            </target>
+          </generator>
+          <jdbc>
+            <driver>${datasource.driver-class-name}</driver>
+            <password>${datasource.password}</password>
+            <url>${datasource.url}</url>
+            <user>${datasource.username}</user>
+          </jdbc>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+          </execution>
+        </executions>
+        <groupId>org.jooq</groupId>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
